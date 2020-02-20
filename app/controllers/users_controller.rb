@@ -46,14 +46,22 @@ class UsersController < ApplicationController
  
  
     # beforeフィルター
+    
+    # paramsハッシュからuserを取得
+    def set_user
+      @user = User.find(params[:id])
+    end
+
 
     # ログイン済みのユーザーか確認します
     def logged_in_user
       unless logged_in?
+        store_location
         flash[:danger] = 'ログインしてください。'
-        redirect_to rogin_url
+        redirect_to login_url
       end
     end
+    
     
     # アクセスしたユーザーが現在ログインしているユーザーか確認します
     def correct_user
